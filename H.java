@@ -47,41 +47,68 @@ public class H {
         showMass();
         toArrayList(mass);
         System.out.println(arrayList);
+
+        ArrayList<Apple> apples = new ArrayList<>();//apples.add(new Apple(11));apples.add(new Apple(12));
+        Box<Apple> appleBox = new Box<Apple>(apples);
+        appleBox.basket.add(new Apple(11.99f));appleBox.basket.add(new Apple(21.99f));
+        ArrayList<Orange> oranges = new ArrayList<>();//oranges.add(new Orange(12));oranges.add(new Orange(43));
+        Box<Orange> orangeBox = new Box<>(oranges);
+        orangeBox.basket.add(new Orange(12.78f));orangeBox.basket.add(new Orange(12.9f));
+        //System.out.println(orangeBox.basket.get(1).getWeight());
+
+        System.out.println("Ves Opelsinov "+orangeBox.getWeight());
+        System.out.println("Ves Yaplok "+appleBox.getWeight());
+        System.out.println("Perviy  tiagelee? "+orangeBox.compare(appleBox));
+
     }
 }
-class Fruit
+ class Fruit
 {
-   float weight;
+   public float weightFF;
+
+    public Fruit(float weightFF) {
+        this.weightFF = weightFF;
+    }
 }
 class Apple extends Fruit
 {
   float weight;
 
     public Apple(float weight) {
+        super(weight);
         this.weight = weight;
     }
 }
 class Orange extends Fruit
 {
-    float weight;
+    private float weight;
 
     public Orange(float weight) {
+        super(weight);
         this.weight = weight;
     }
 }
 class Box<T extends Fruit>
 {
-    private ArrayList<Fruit> bascet;
-    public void addFruit()
+     private float weight;
+     ArrayList<T> basket;
+      public Box(ArrayList<T> basket)
     {
-        bascet.add(new Apple(2.4f));
-        bascet.add(new Orange(3.5f));
+        this.basket = basket;
     }
 
-    public <T extends Fruit> void compare(ArrayList<T> b)
+    public  float getWeight()
     {
+        for(int i = 0; i < basket.size(); i++)
+        {
+            weight = weight+basket.get(i).weightFF;
+        }
 
-
-
+        return weight;
     }
+    public Boolean compare(Box<? extends Fruit> b)
+    {
+        return b.getWeight()<this.getWeight();
+    }
+
 }
